@@ -9,8 +9,9 @@ var passport = require('passport');
 
 require('./models/account');
 require('./models/user');
+var index = require('./routes/index')
 var account = require('./routes/account');
-var authenticate = require('./routes/authenticate')(passport);;
+var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
 mongoose.connect('mongodb://localhost/neevaccountdb');              //connect to Mongo
 var app = express();
@@ -31,6 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/',index);
 app.use('/auth', authenticate);
 app.use('/api', account);
 

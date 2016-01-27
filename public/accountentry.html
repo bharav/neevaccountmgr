@@ -1,0 +1,135 @@
+   <div class="container">
+        <form class="form">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Customer</a> </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inputCustomerName" class="sr-only">Customer Name</label>
+                                    <input type="text" id="inputCustomerName" class="form-control" placeholder="Customer Name" required autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputCustomerContact" class="sr-only">Customer Contact</label>
+                                    <input type="number" id="inputCustomerContact" class="form-control" placeholder="Customer Contacted From" required autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputCustomerContactedFrom" class="sr-only">Customer Contact From</label>
+                                    <input type="number" id="inputCustomerContact" class="form-control" placeholder="Customer Contact" required autofocus>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="inputCustomerAddress" class="sr-only">Customer Address</label>
+                                    <input type="textarea" id="inputCustomerAddress" class="form-control" placeholder="Customer Address" required autofocus>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Product Details</a>
+                       </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inputPrdName" class="sr-only">Product Name</label>
+                                    <input type="text" id="inputPrdName" class="form-control" placeholder="Product Name" required autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputDealerName" class="sr-only">Dealer</label>
+                                    <input type="text" id="inputDealerName" class="form-control" placeholder="Dealer Name" required autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputDlrContact" class="sr-only">Dealer Contact</label>
+                                    <input type="number" id="inputDlrContact" class="form-control" placeholder="Dealer Contact" required autofocus>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inputCP" class="sr-only">Cost Price</label>
+                                    <input type="number" id="inputCP" class="form-control" placeholder="Cost Price" required autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputSP" class="sr-only">Selling Price</label>
+                                    <input type="text" id="inputSP" class="form-control" placeholder="Selling Price" required autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputUnits" class="sr-only">Units</label>
+                                    <input type="number" id="inputUnits" class="form-control" placeholder="Units" required autofocus>
+                                </div>
+                            </div>
+                            <div class="center-block">
+                                    <button class="btn btn-lg btn-primary pull-right" type="submit">Add Product</button>
+                                    <button class="btn btn-lg btn-primary pull-right margin-10" type="submit">Cancel</button>
+                            </div>
+                            <div>
+                                <h3> Product Details:</h3>
+                                <div class="row productrow">
+                                    <div class="col-md-4">Product Name</div>
+                                    <div class="col-md-2">Unit Price</div>
+                                    <div class="col-md-2">Units</div>
+                                    <div class="col-md-2">Total Price</div>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Payment & Shipment</a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="inputPaymentStatus" class="sr-only">Payment Status</label>
+                                    <input type="number" id="inputPaymentStatus" class="form-control" placeholder="Payment Status" required autofocus>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputPaymentComment" class="sr-only">Payment Comment</label>
+                                    <input type="textarea" id="inputPaymentComment" class="form-control" placeholder="Payment Comment" required autofocus>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="inputShipmentStatus" class="sr-only">Shipment Status</label>
+                                    <input type="number" id="inputShipmentStatus" class="form-control" placeholder="Shipment Status" required autofocus>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputShipmentComment" class="sr-only">Shipment Comment</label>
+                                    <input type="textarea" id="inputShipmentComment" class="form-control" placeholder="Shipment Comment" required autofocus>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="center-block">
+                <button class="btn btn-lg btn-primary pull-right" type="submit">Submit</button>
+                <button class="btn btn-lg btn-primary pull-right margin-10" type="submit">Cancel</button>
+            </div>
+
+
+        </form>
+    </div>
