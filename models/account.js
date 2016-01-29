@@ -22,7 +22,10 @@ var accountSchema = new mongoose.Schema({
     paymentcomment:{type:String},
     shipmentstatus:{type:String, default:'Not Started'},
     shipmentcomment:{type:String},
-    created:{type:Date,required:true,default:Date.now}
+    created:{type:Date,required:true,default:Date.now},
+    status:{type:String},
+    resellername:{type:String},
+    resellercomission:{type:Number}
 });
 
 mongoose.model('Account', accountSchema);

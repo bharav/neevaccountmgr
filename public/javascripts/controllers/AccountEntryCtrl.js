@@ -5,7 +5,6 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
 
     if ($rootScope.authenticated === false)
         $location.path('/login')
-    
     //initialize product
     $scope.products = [];
     $scope.read = false;
