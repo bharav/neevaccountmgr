@@ -1,12 +1,11 @@
-<div class="container">
-
-      <form class="form-signin">
+<div class="container-fluid">
+    <form class="form-signup">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="User name" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="User name" ng-model="user.username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="user.password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Sign in</button>
+    </form>
 
-    </div> <!-- /container -->
+</div>

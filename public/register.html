@@ -2,12 +2,12 @@
     <form class="form-signup">
         <h2 class="form-signup-heading">Please sign up</h2>
         <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="User name" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="User name" ng-model="user.username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="user.password" required>
         <label for="inputCnfrmPwd" class="sr-only">Password</label>
         <input type="password" id="inputCnfrmPwd" class="form-control" placeholder="Confirm Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="register()">Submit</button>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Cancel</button>
     </form>
 </div>

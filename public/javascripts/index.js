@@ -1,20 +1,37 @@
-var app = angular.module('NeevAccountApp', ['ngRoute']);
+var app = angular.module('NeevAccountApp', ['ngRoute',"NeevAccountApp.services"]).run(function($http,$rootScope,$location){
+    $rootScope.authenticated = false;
+    $rootScope.current_user = '';
+    $rootScope.signout = function(){
+		$http.get('auth/signout');
+		$rootScope.authenticated = false;
+		$rootScope.current_user = 'Guest';
+        $location.path('#/login');
+	};
+});
 
 app.config(function($routeProvider){
 	$routeProvider
 		//the timeline display
 		.when('/', {
-			templateUrl: 'main.html',
-			controller: 'mainController'
+			templateUrl: 'accountentry.html',
+			controller: 'AccountEntryController'
 		})
 		//the login display
 		.when('/login', {
 			templateUrl: 'login.html',
-			controller: 'authController'
+			controller: 'AuthController'
 		})
 		//the signup display
 		.when('/register', {
 			templateUrl: 'register.html',
-			controller: 'authController'
+			controller: 'AuthController'
+		})
+        .when('/:id/:state', {
+			templateUrl: 'accountentry.html',
+			controller: 'AccountEntryController'
+		})
+        .when('/dashboard', {
+			templateUrl: 'dashboard.html',
+			controller: 'DashboardController'
 		});
 });
