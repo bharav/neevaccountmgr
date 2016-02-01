@@ -85,6 +85,19 @@ router.route('/account/:id')
                 res.send(err);
             res.json("deleted :(");
         });
+    })
+    //api for date specific route
+router.route('/accountbydate')
+    .post(function (req, res) {
+        var startdate = new Date(req.body.startdate);
+        var enddate = new Date(req.body.enddate);
+        console.log("tried to search accounts between" + startdate + "&" + enddate);
+        console.log(enddate);
+        Account.find({ "created": { "$gte": startdate, "$lt": enddate } }, function (err, account) {
+            if (err)
+                res.send(err);
+            res.json(account);
+        })
     });
 
 module.exports = router;

@@ -42,11 +42,11 @@
                             </div>
                             <div class="col-md-4" ng-show="statementtype == 'detailed'">
                                 <label for="inputStartDate" class="sr-only">Order Date</label>
-                                <input type="text" datepicker=""  class="form-control" ng-model="startdate" ng-readonly="read" />
+                                <input type="text" datepicker=""  class="form-control" ng-model="search.startdate" ng-readonly="read" />
                             </div>
                             <div class="col-md-4" ng-show="statementtype == 'detailed'">
                                 <label for="inputEndDate" class="sr-only">Order Date</label>
-                                <input type="text" datepicker="" class="form-control" ng-model="enddate" ng-readonly="read" />
+                                <input type="text" datepicker="" class="form-control" ng-model="search.enddate" ng-readonly="read" />
                             </div>
                             <div class="col-md-2">
                                 <button class="btn btn-block btn-primary pull-center" type="submit" ng-click="search()">Search</button>
