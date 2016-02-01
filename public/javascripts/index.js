@@ -1,4 +1,4 @@
-var app = angular.module('NeevAccountApp', ['ngRoute',"NeevAccountApp.services"]).run(function($http,$rootScope,$location){
+var app = angular.module('NeevAccountApp', ['ngRoute',"NeevAccountApp.services","angularUtils.directives.dirPagination"]).run(function($http,$rootScope,$location){
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
     $rootScope.signout = function(){

@@ -12,4 +12,5 @@ function DashboardController($scope,$rootScope,$location,AccountService){
       $scope.goto=function(accountid){
           $location.path('/'+accountid+"/read");
       }  
+      $scope.statementtype ="monthly";
 }

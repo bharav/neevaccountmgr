@@ -1,21 +1,94 @@
 <div class="container padding-top-10">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Bill Date</th>
-                <th>Customer Name</th>
-                <th>Customer Contact</th>
-                <th>Customer Connected</th>
-                <th>Billed Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="account in accounts" ng-click="goto(account._id)">
-                <td>{{account.created | date:"h:mma 'on' MMM d, y"}}</td>
-                <td>{{account.customer[0].name}}</td>
-                <td>{{account.customer[0].contact}}</td>
-                <td>{{account.customer[0].connectedfrom}}</td>
-                <td>{{account.billedamount}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <form class="form">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Search Criteria</h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>
+                                            <input type="radio" name="optradio" ng-model="statementtype" value="monthly">Monthly View</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <input type="radio" name="optradio" ng-model="statementtype" value="detailed">Deatiled Statement</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row padding-top-10">
+                            <div class="col-md-6" ng-show="statementtype == 'monthly'">
+                                <label for="inputCustomerContact" class="sr-only">Month</label>
+                                <select id="orderoption" class="form-control" ng-model="connectedfrom" ng-readonly="read">
+                                    <option value="" disabled selected hidden>Select Month</option>
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" ng-show="statementtype == 'detailed'">
+                                <label for="inputStartDate" class="sr-only">Order Date</label>
+                                <input type="text" datepicker=""  class="form-control" ng-model="startdate" ng-readonly="read" />
+                            </div>
+                            <div class="col-md-4" ng-show="statementtype == 'detailed'">
+                                <label for="inputEndDate" class="sr-only">Order Date</label>
+                                <input type="text" datepicker="" class="form-control" ng-model="enddate" ng-readonly="read" />
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-block btn-primary pull-center" type="submit" ng-click="search()">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Statement</h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Bill Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Contact</th>
+                                    <th>Customer Connected</th>
+                                    <th>Billed Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="account in accounts|itemsPerPage:10" ng-click="goto(account._id)">
+                                    <td>{{account.created | date:"h:mma 'on' MMM d, y"}}</td>
+                                    <td>{{account.customer[0].name}}</td>
+                                    <td>{{account.customer[0].contact}}</td>
+                                    <td>{{account.customer[0].connectedfrom}}</td>
+                                    <td>{{account.billedamount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                         <dir-pagination-controls  max-size="10"  direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
