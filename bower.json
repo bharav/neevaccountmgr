@@ -1,0 +1,19 @@
+{
+  "name": "Neev Account Management Portal",
+  "description": "Portal to manage accounts for Neev",
+  "main": "",
+  "authors": [
+    "bharav <viv.1431@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/bharav/neevaccountmgr",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
