@@ -33,6 +33,7 @@ app.config(function($routeProvider){
         .when('/dashboard', {
 			templateUrl: 'dashboard.html',
 			controller: 'DashboardController'
+            
 		});
 });
 
@@ -44,7 +45,7 @@ app.config(function($routeProvider){
                return {
                   pre: function(scope, element, attrs, ngModelCtrl) {
                      var format, dateObj;
-                     format = (!attrs.dpFormat) ? 'd/m/yyyy' : attrs.dpFormat;
+                     format = (!attrs.dpFormat) ? 'yyyy/mm/dd' : attrs.dpFormat;
                      if (!attrs.initDate && !attrs.dpFormat) {
                         // If there is no initDate attribute than we will get todays date as the default
                         dateObj = new Date();

@@ -19,7 +19,7 @@ function DashboardController($scope, $rootScope, $location, AccountService) {
         //Get value based on statement by type monthly
         if ($scope.statementtype !== "monthly") {
             
-              AccountService.getAccountbyDate($scope.search).then(function (data) {
+              AccountService.getAccountbyDate($scope.searchinput).then(function (data) {
                 $scope.accounts = data;
             })
            
