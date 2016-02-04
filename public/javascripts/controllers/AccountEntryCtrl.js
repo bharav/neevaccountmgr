@@ -29,7 +29,7 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
         $scope.products.push($scope.newProduct);
         $scope.billedamount += ($scope.newProduct.sellingprice * $scope.newProduct.units)
         $scope.newProduct = null;
-        
+
     }
     
     //edit already added products
@@ -55,11 +55,18 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
         $scope.account.customer = $scope.customer;
         $scope.account.products = $scope.products
         $scope.account.billedamount = $scope.billedamount;
-        AccountService.setAccounts($scope.account).then(function (data) {
-            console.log(data);
-            $location.path('/' + data._id + "/read");
-
-        })
+        if (typeof $routeParams.id !== 'undefined' && typeof $routeParams.state !== 'undefined') {
+             AccountService.updateAccount($scope.account).then(function (data) {
+                console.log(data);
+                $location.path('/' + data._id + "/read");
+            })
+        }
+        else {
+            AccountService.setAccounts($scope.account).then(function (data) {
+                console.log(data);
+                $location.path('/' + data._id + "/read");
+            })
+        }
     }
     $scope.updateaccount = function () {
         $location.path('/' + $routeParams.id + "/edit");

@@ -18,15 +18,17 @@ function DashboardController($scope, $rootScope, $location, AccountService) {
     $scope.search = function () {
         //Get value based on statement by type monthly
         if ($scope.statementtype !== "monthly") {
-            AccountService.getAccounts().then(function (data) {
+            
+              AccountService.getAccountbyDate($scope.search).then(function (data) {
                 $scope.accounts = data;
-            });
+            })
+           
         }
         //Get value based on statement by type searchdate
         else {
-            AccountService.getAccountbyDate($scope.search).then(function (data) {
+           AccountService.getAccounts().then(function (data) {
                 $scope.accounts = data;
-            })
+            });
         }
     }
 }

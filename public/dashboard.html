@@ -24,20 +24,20 @@
                         <div class="row padding-top-10">
                             <div class="col-md-6" ng-show="statementtype == 'monthly'">
                                 <label for="inputCustomerContact" class="sr-only">Month</label>
-                                <select id="orderoption" class="form-control" ng-model="connectedfrom" ng-readonly="read">
+                                <select id="orderoption" class="form-control" ng-model="statementmonth" ng-readonly="read">
                                     <option value="" disabled selected hidden>Select Month</option>
-                                    <option>January</option>
-                                    <option>February</option>
-                                    <option>March</option>
-                                    <option>April</option>
-                                    <option>May</option>
-                                    <option>June</option>
-                                    <option>July</option>
-                                    <option>August</option>
-                                    <option>September</option>
-                                    <option>October</option>
-                                    <option>November</option>
-                                    <option>December</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
                                 </select>
                             </div>
                             <div class="col-md-4" ng-show="statementtype == 'detailed'">
