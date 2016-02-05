@@ -49,7 +49,7 @@ app.config(function($routeProvider){
                      if (!attrs.initDate && !attrs.dpFormat) {
                         // If there is no initDate attribute than we will get todays date as the default
                         dateObj = new Date();
-                        scope[attrs.ngModel] = dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
+                        scope[attrs.ngModel] = dateObj.getFullYear() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getDate();
                      } else if (!attrs.initDate) {
                         // Otherwise set as the init date
                         scope[attrs.ngModel] = attrs.initDate;
@@ -60,7 +60,7 @@ app.config(function($routeProvider){
                      }
                      // Initialize the date-picker
                      $(element).datepicker({
-                        format: format,
+                        format: 'yyyy/mm/dd',
                      }).on('changeDate', function(ev) {
                         // To me this looks cleaner than adding $apply(); after everything.
                         scope.$apply(function () {

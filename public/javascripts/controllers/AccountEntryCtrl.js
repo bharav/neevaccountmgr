@@ -13,6 +13,8 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
         AccountService.setAccountId($routeParams.id);
         AccountService.getAccountbyId($scope.account).then(function (data) {
             $scope.account = data;
+            var dateObj = new Date($scope.account.created);
+            $scope.account.created = dateObj.getFullYear() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getDate();
             $scope.customer = $scope.account.customer[0];
             $scope.billedamount = $scope.account.billedamount
             console.log($scope.customer);
@@ -56,7 +58,7 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
         $scope.account.products = $scope.products
         $scope.account.billedamount = $scope.billedamount;
         if (typeof $routeParams.id !== 'undefined' && typeof $routeParams.state !== 'undefined') {
-             AccountService.updateAccount($scope.account).then(function (data) {
+            AccountService.updateAccount($scope.account).then(function (data) {
                 console.log(data);
                 $location.path('/' + data._id + "/read");
             })

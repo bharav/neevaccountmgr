@@ -30,7 +30,7 @@ router.route('/accounts')
 
 //create a new post
     .post(function (req, res) {
-
+         console.log(req.body.created);
         var account = new Account(req.body);
         account.save(function (err, account) {
             if (err) {

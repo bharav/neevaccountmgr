@@ -11,11 +11,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputCustomerName" class="sr-only">Order Date</label>
-                                <input type="text" datepicker="" class="form-control" ng-model="created" ng-readonly="read"/>
+                                <input type="text" datepicker="" class="form-control" ng-model="account.created" ng-readonly="read"/>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCustomerContact" class="sr-only">Order Status</label>
-                                <select id="orderoption" class="form-control" ng-model="connectedfrom" ng-readonly="read">
+                                <select id="orderoption" class="form-control" ng-model="account.status" ng-readonly="read">
                                     <option value="" disabled selected hidden>Order Status</option>
                                     <option>Open</option>
                                     <option>Closed</option>
