@@ -8,9 +8,13 @@ var session = require('express-session');
 var passport = require('passport');
 
 require('./models/account');
+require('./models/customer');
+require('./models/dealer');
 require('./models/user');
 var index = require('./routes/index')
 var account = require('./routes/account');
+var dealer = require('./routes/dealer');
+var customer = require('./routes/customer');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
 mongoose.connect('mongodb://localhost/neevaccountdb');              //connect to Mongo
@@ -35,6 +39,8 @@ app.use(passport.session());
 app.use('/',index);
 app.use('/auth', authenticate);
 app.use('/api', account);
+app.use('/api',customer);
+app.use('api',dealer);
 
 
 

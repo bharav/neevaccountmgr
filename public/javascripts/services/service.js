@@ -4,6 +4,30 @@ angular.module('NeevAccountApp.services', [])
         // Some fake testing data
         var currentaccountId;
    
+        function getCustomers(){
+             var deferred = $q.defer();
+            $http.get("/api/customers")
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    console.log("Error in http call.");
+                    deferred.reject();
+                });
+            return deferred.promise;
+        }
+          function getDealers(){
+             var deferred = $q.defer();
+            $http.get("/api/dealers")
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    console.log("Error in http call.");
+                    deferred.reject();
+                });
+            return deferred.promise;
+        }
         //Get list of orders from server
         function getAccounts() {
             var deferred = $q.defer();
@@ -100,7 +124,9 @@ angular.module('NeevAccountApp.services', [])
             setAccounts: setAccounts,
             updateAccount: updateAccount,
             getAccountbyId: getAccountbyId,
-            getAccountbyDate: getAccountbyDate
+            getAccountbyDate: getAccountbyDate,
+            getCustomers:getCustomers,
+            getDealer:getDealers
         }
 
     })

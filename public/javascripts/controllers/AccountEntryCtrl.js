@@ -2,9 +2,18 @@ angular.module("NeevAccountApp").controller("AccountEntryController", ['$scope',
 
 
 function AccountEntryController($scope, $rootScope, $location, $routeParams, AccountService) {
-
+    $scope.customerSelected=[];
+    $scope.dealerSelected=[];
     if ($rootScope.authenticated === false)
         $location.path('/login')
+        AccountService.getCustomers().then(function (data) {
+            $scope.customers=data;
+            console.log(data);
+    });  
+        AccountService.getDealers().then(function (data) {
+            $scope.dealers=data;
+            console.log(data);
+    });  
     //initialize product
     $scope.products = [];
     $scope.read = false;
@@ -28,9 +37,12 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
     
     // add products
     $scope.AddProduct = function () {
+        $scope.newProduct.dealername=$scope.dealerSelected.name;
+        $scope.newProduct.dealercontact = $scope.dealerSelected.name;
         $scope.products.push($scope.newProduct);
         $scope.billedamount += ($scope.newProduct.sellingprice * $scope.newProduct.units)
         $scope.newProduct = null;
+        $scope.dealerSelected = null;
 
     }
     
@@ -54,7 +66,20 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
     
     //submit account entry
     $scope.submitaccount = function () {
-        $scope.account.customer = $scope.customer;
+        if($scope.customerSelected.name===null || typeof($scope.customerSelected.name)==="undefined")
+        {
+            var customernew =
+            {
+               "name":  $scope.customerSelected,
+               "connectedfrom":$scope.customerSelected.connectedfrom,
+               "contact":$scope.customerSelected.contact,
+               "address":$scope.customerSelected.address,
+            };
+            $scope.account.customer = customernew;
+        }
+        else{
+            $scope.account.customer=$scope.customerSelected;
+        }
         $scope.account.products = $scope.products
         $scope.account.billedamount = $scope.billedamount;
         if (typeof $routeParams.id !== 'undefined' && typeof $routeParams.state !== 'undefined') {

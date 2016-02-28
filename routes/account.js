@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Account = mongoose.model('Account');
+var Customer = mongoose.model('Customer');
+var Dealer = mongoose.model('Dealer');
 
 
 //Used for routes that must be authenticated.
@@ -30,7 +32,26 @@ router.route('/accounts')
 
 //create a new post
     .post(function (req, res) {
-         console.log(req.body.created);
+         console.log(req.body.customer[0]);
+         if(req.body.customer[0].custId===null || typeof(req.body.customer[0].custId)==="undefined")
+         {
+             req.body.customer[0].custId = "CUST"+req.body.customer[0].contact;
+             var customer = new Customer(req.body.customer[0]);
+             customer.save(function(err,customer){
+                 if(err){
+                     return res.send(500,err);
+                 }
+             })
+         }
+         if(req.body.dealerId===null || typeof(req.body.dealerId)==="undefined")
+         {
+             var dealer = new Dealer({dealerId:"DEALER"+req.body.dealercontact,name:req.body.dealername,contact:req.body.dealercontact});
+             dealer.save(function(err,dealer){
+                 if(err){
+                     return res.send(500,err);
+                 }
+             })
+         }
         var account = new Account(req.body);
         account.save(function (err, account) {
             if (err) {
