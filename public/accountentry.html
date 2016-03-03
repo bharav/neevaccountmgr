@@ -1,16 +1,16 @@
 <div class="container padding-top-10">
     <script type="text/ng-template" id="customPopupTemplate.html">
-    <div class="custom-popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;"
-    ng-show="isOpen() && !moveInProgress" aria-hidden="{{!isOpen()}}">
-        <p class="message">select customer from drop down.</p>
-        <ul class="dropdown-menu" role="listbox">
-            <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)"
-            ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
-                <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
-            </li>
-        </ul>
-    </div>
-</script>
+        <div class="custom-popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;"
+        ng-show="isOpen() && !moveInProgress" aria-hidden="{{!isOpen()}}">
+            <p class="message">select customer from drop down.</p>
+            <ul class="dropdown-menu" role="listbox">
+                <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)"
+                ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                    <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+                </li>
+            </ul>
+        </div>
+    </script>
     <form class="form">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputCustomerName" class="sr-only">Order Date</label>
-                                <input type="text" datepicker="" class="form-control" ng-model="account.created" ng-readonly="read"/>
+                                <input type="text" datepicker="" class="form-control" ng-model="account.created" ng-readonly="read" />
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCustomerContact" class="sr-only">Order Status</label>
@@ -44,17 +44,17 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                         <div class="row">
-                            <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-12">
                                 <label for="inputCustomerName" class="sr-only">Select Customer</label>
-                                 <input type="text" id="inputCustomerName" class="form-control" placeholder="Select Customer" ng-readonly="read" ng-model="customerSelected" 
-                                uib-typeahead="customer as customer.name for customer in customers | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" 
-                                autofocus>
+                                <input type="text" id="inputCustomerName" class="form-control" placeholder="Select Customer" ng-readonly="read" ng-model="customerSelected"
+                                uib-typeahead="customer as customer.name for customer in customers | filter:{name:$viewValue}"
+                                typeahead-popup-template-url="customPopupTemplate.html" autofocus>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                 <label for="inputCustomerContact" class="sr-only">Customer Name</label>
+                                <label for="inputCustomerContact" class="sr-only">Customer Name</label>
                                 <input type="text" id="inputCustomerContact" class="form-control" placeholder="Customer Name" ng-model="customerSelected.name"
                                 ng-readonly="read">
                             </div>
@@ -91,10 +91,10 @@
                 <div id="collapse2" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <label for="inputSelectedDealer" class="sr-only">Select Dealer</label>
-                                 <input type="text" id="inputSelectedDealer" class="form-control" placeholder="Select Dealer" ng-readonly="read" ng-model="dealerSelected" 
-                                uib-typeahead="dealer as dealer.name for dealer in dealers | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" 
+                                <input type="text" id="inputSelectedDealer" class="form-control" placeholder="Select Dealer" ng-readonly="read" ng-model="dealerSelected"
+                                uib-typeahead="dealer as dealer.name for dealer in dealers | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html"
                                 autofocus>
                             </div>
                         </div>
@@ -125,6 +125,29 @@
                             <div class="col-md-4">
                                 <label for="inputUnits" class="sr-only">Units</label>
                                 <input type="number" id="inputUnits" class="form-control" placeholder="Units" ng-model="newProduct.units" ng-readonly="read">
+                            </div>
+                        </div>
+                        <div class="row" ng-hide="read">
+                            <div class="col-md-6">
+                                <label for="inputPurchasepaymentStatus" class="sr-only">Purchase Payment Status</label>
+                                <select id="inputPurchasepaymentStatus" class="form-control" ng-model="newProduct.purchasepaymentdone" placeholder="Purchase Payment Done"
+                                ng-readonly="read">
+                                    <option value="" disabled hidden>Purchase Payment Status</option>
+                                    <option value="false">Due</option>
+                                    <option value="true">Paid</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputPrchsePaymntAmount" class="sr-only">Purchase payment Amount</label>
+                                <input type="number" id="inputPrchsePaymntAmount" class="form-control" placeholder="Purchase Payment Amount" ng-model="newProduct.purchasepaymentamount"
+                                ng-readonly="read">
+                            </div>
+                        </div>
+                        <div class="row" ng-hide="read">
+                            <div class="col-md-12">
+                                <label for="inputPrchsePaymntComment" class="sr-only">Purchase payment Comment</label>
+                                <input type="text" id="inputPrchsePaymntComment" class="form-control" placeholder="Purchase Payment Comment" ng-model="newProduct.purchasepaymentcomment"
+                                ng-readonly="read">
                             </div>
                         </div>
                         <div class="center-block" ng-hide="read">

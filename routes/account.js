@@ -32,26 +32,27 @@ router.route('/accounts')
 
 //create a new post
     .post(function (req, res) {
-         console.log(req.body.customer[0]);
-         if(req.body.customer[0].custId===null || typeof(req.body.customer[0].custId)==="undefined")
-         {
-             req.body.customer[0].custId = "CUST"+req.body.customer[0].contact;
-             var customer = new Customer(req.body.customer[0]);
-             customer.save(function(err,customer){
-                 if(err){
-                     return res.send(500,err);
-                 }
-             })
-         }
-         if(req.body.dealerId===null || typeof(req.body.dealerId)==="undefined")
-         {
-             var dealer = new Dealer({dealerId:"DEALER"+req.body.dealercontact,name:req.body.dealername,contact:req.body.dealercontact});
-             dealer.save(function(err,dealer){
-                 if(err){
-                     return res.send(500,err);
-                 }
-             })
-         }
+        console.log(req.body.customer[0]);
+        if (req.body.customer[0].custId === null || typeof (req.body.customer[0].custId) === "undefined") {
+            req.body.customer[0].custId = "CUST" + req.body.customer[0].contact;
+            var customer = new Customer(req.body.customer[0]);
+            customer.save(function (err, customer) {
+                if (err) {
+                    return res.send(500, err);
+                }
+            })
+        }
+        req.body.products.forEach(function (product) {
+            if (product.dealerId === null || typeof (product.dealerId) === "undefined") {
+                var dealer = new Dealer({ dealerId: "DEALER" + product.dealercontact, name: product.dealername, contact: product.dealercontact });
+                dealer.save(function (err, dealer) {
+                    if (err) {
+                        return res.send(500, err);
+                    }
+                })
+            }
+        }, this);
+
         var account = new Account(req.body);
         account.save(function (err, account) {
             if (err) {
@@ -77,6 +78,7 @@ router.route('/account/:id')
         Account.findById(req.params.id, function (err, account) {
             if (err)
                 res.send(err);
+            account.status = req.body.status;
             account.customer = req.body.customer;
             account.products = req.body.products;
             account.billedamount = req.body.billedamount;
@@ -107,7 +109,7 @@ router.route('/account/:id')
             res.json("deleted :(");
         });
     })
-    //api for date specific route
+//api for date specific route
 router.route('/accountbydate')
     .post(function (req, res) {
         var startdate = new Date(req.body.startdate);

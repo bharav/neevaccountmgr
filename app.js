@@ -40,7 +40,7 @@ app.use('/',index);
 app.use('/auth', authenticate);
 app.use('/api', account);
 app.use('/api',customer);
-app.use('api',dealer);
+app.use('/api',dealer);
 
 
 
