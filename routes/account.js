@@ -44,7 +44,7 @@ router.route('/accounts')
         }
         req.body.products.forEach(function (product) {
             if (product.dealerId === null || typeof (product.dealerId) === "undefined") {
-                var dealer = new Dealer({ dealerId: "DEALER" + product.dealercontact, name: product.dealername, contact: product.dealercontact });
+                var dealer = new Dealer({ dealerId: "DEALER" + product.dealercontact, name: product.dealer, contact: product.dealercontact });
                 dealer.save(function (err, dealer) {
                     if (err) {
                         return res.send(500, err);
