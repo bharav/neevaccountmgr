@@ -6,20 +6,35 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
+var schedule = require('node-schedule');
 
 require('./models/account');
 require('./models/customer');
 require('./models/dealer');
 require('./models/user');
+require('./models/profitrevenue');
+require('./models/systemvariables');
+var timer = require('./timerlogic/revenueprofit');
 var index = require('./routes/index')
 var account = require('./routes/account');
 var dealer = require('./routes/dealer');
 var customer = require('./routes/customer');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
-mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
+mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
+//mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
 var app = express();
+var schedule = require('node-schedule');
 
+var rule = new schedule.RecurrenceRule();
+rule.hour = 23;
+rule.minute = 45;
+
+ 
+var j = schedule.scheduleJob(rule, function(){
+  console.log('Testing Cron Job!');
+  timer.updateProfitRevenue();
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
