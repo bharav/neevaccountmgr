@@ -36,6 +36,30 @@ module.exports = {
         })
 
 
+    },
+    initiatlizeRevenueDB : function initiatlizeRevenueDB() {
+        var currentdate = new Date();
+        var currentYear = currentdate.getFullYear();
+        Profitrevenue.find({'year':currentYear},function (err,profitrevenue) {
+            if(profitrevenue.length<12)
+            {
+                if(profitrevenue.length===0)
+                {
+                    for(var count = 1;count<=12;count++)
+                    {
+                        var initiateProfitRevenue = new Profitrevenue({'year':currentYear,'month':count,"revenue":0,"profit":0})
+                        initiateProfitRevenue.save(function(err,data){
+                            if(err)
+                            console.log(err);
+                        })
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+        })
     }
 }
 //Update revenu and profit data and store in database based on months and year
