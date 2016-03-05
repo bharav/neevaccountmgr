@@ -27,12 +27,13 @@ var app = express();
 var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();
-rule.hour = 23;
-rule.minute = 45;
-
+//rule.hour = 23;
+//rule.minute = 45;
+rule.second=10;
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('Testing Cron Job!');
+  timer.initiatlizeRevenueDB();
   timer.updateProfitRevenue();
 });
 // view engine setup
