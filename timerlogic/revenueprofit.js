@@ -40,7 +40,7 @@ module.exports = {
     initiatlizeRevenueDB: function initiatlizeRevenueDB() {
         var currentdate = new Date();
         var currentYear = currentdate.getFullYear();
-        Profitrevenue.find({ 'year': currentYear }).sort('month').exec(function (err, profitrevenue) {
+        Profitrevenue.find({ 'year': currentYear }).sort({ 'month': -1 }).exec(function (err, profitrevenue) {
             console.log(profitrevenue.length);
             if (profitrevenue.length < 12) {
                 if (profitrevenue.length === 0) {
@@ -53,26 +53,24 @@ module.exports = {
                     }
                 }
                 else {
-                    for (var count = 0, dbcount = 0; count < 12; count++) {
-                        if (dbcount < profitrevenue.length) {
+                    for (var count = 0; count < 12; count++) {
+                        var ifentryexit = false;
+                        for (var dbcount = 0; dbcount < profitrevenue.length; dbcount++) {
                             if (profitrevenue[dbcount].month === (count + 1).toString()) {
-                                dbcount++;
-                            }
-                            else {
-                                var initiateProfitRevenue2 = new Profitrevenue({ 'year': currentYear, 'month': count + 1, "revenue": 0, "profit": 0 });
-                                initiateProfitRevenue2.save(function (err, data) {
-                                    if (err)
-                                        console.log(err);
-                                })
+                                {
+                                    ifentryexit = true;
+                                    break;
+                                }
                             }
                         }
-                        else {
+                        if (!ifentryexit) {
                             var initiateProfitRevenue1 = new Profitrevenue({ 'year': currentYear, 'month': count + 1, "revenue": 0, "profit": 0 });
                             initiateProfitRevenue1.save(function (err, data) {
                                 if (err)
                                     console.log(err);
                             })
                         }
+
                     }
                 }
             }

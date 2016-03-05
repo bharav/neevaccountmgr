@@ -10,6 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <title>Neevs Account Management Portal</title>
+    
     <!-- Bootstrap core CSS -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker.css" rel="stylesheet">
@@ -20,16 +21,20 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+    <script src="bower_components/highcharts/highcharts.js"></script>
+    <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
     <script src="javascripts/index.js"></script>
 
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Controllers -->
     <script src="javascripts/controllers/AccountEntryCtrl.js"></script>
     <script src="javascripts/controllers/AuthCtrl.js"></script>
-    <script src="javascripts/controllers/dashboardCtrl.js"></script>
+    <script src="javascripts/controllers/DashboardCtrl.js"></script>
+    <script src="javascripts/controllers/SearchCtrl.js"></script>
     <script src="javascripts/services/service.js"></script>
     <script src="javascripts/directives/directives.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.min.js"></script>
@@ -55,8 +60,9 @@
                 <p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
                 <p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
                 <ul class="nav navbar-nav" ng-show="authenticated">
-                    <li><a href="#/dashboard">Dashboard</a></li>
-                    <li><a href="#/">New Entry</a></li>
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#/account">New Entry</a></li>
+                    <li><a href="#/search">Search</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

@@ -1,4 +1,4 @@
-var app = angular.module('NeevAccountApp', ['ngRoute', "ui.bootstrap","NeevAccountApp.services","NeevAccountApp.directive","angularUtils.directives.dirPagination"]).run(function($http,$rootScope,$location){
+var app = angular.module('NeevAccountApp', ['ngRoute', "ui.bootstrap","NeevAccountApp.services","NeevAccountApp.directive","angularUtils.directives.dirPagination","highcharts-ng"]).run(function($http,$rootScope,$location){
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
     $rootScope.signout = function(){
@@ -13,8 +13,17 @@ app.config(function($routeProvider){
 	$routeProvider
 		//the timeline display
 		.when('/', {
+			templateUrl: 'dashboard.html',
+			controller: 'DashboardController'
+		})
+        .when('/account', {
 			templateUrl: 'accountentry.html',
 			controller: 'AccountEntryController'
+		})
+          .when('/search', {
+			templateUrl: 'search.html',
+			controller: 'SearchController'
+            
 		})
 		//the login display
 		.when('/login', {
@@ -29,10 +38,5 @@ app.config(function($routeProvider){
         .when('/:id/:state', {
 			templateUrl: 'accountentry.html',
 			controller: 'AccountEntryController'
-		})
-        .when('/dashboard', {
-			templateUrl: 'dashboard.html',
-			controller: 'DashboardController'
-            
 		});
 });

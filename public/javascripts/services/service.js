@@ -119,6 +119,18 @@ angular.module('NeevAccountApp.services', [])
                 });
             return deferred.promise;
         }
+        function getRevenueProfit(){
+            var deferred = $q.defer();
+            $http.get("/api/revenue")
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    console.log("Error in http call.");
+                    deferred.reject();
+                });
+            return deferred.promise;
+        }
         return {
             setAccountId: setAccountId,
             getAccounts: getAccounts,
@@ -127,7 +139,8 @@ angular.module('NeevAccountApp.services', [])
             getAccountbyId: getAccountbyId,
             getAccountbyDate: getAccountbyDate,
             getCustomers:getCustomers,
-            getDealers:getDealers
+            getDealers:getDealers,
+            getRevenueProfit:getRevenueProfit
         }
 
     })
