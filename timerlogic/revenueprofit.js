@@ -91,6 +91,12 @@ function UpdateRevenueDb(accounts, count) {
                 console.log(err);
             }
             else {
+                accounts[count].revenuecalculated=true;
+                accounts[count].save(function(err,account)
+                {
+                    if(err)
+                    console.log(err);
+                });
                 if (profitrevenue === null) {
                     var tempProfitandRevenue = new Profitrevenue({
                         year: createdate.getFullYear(),

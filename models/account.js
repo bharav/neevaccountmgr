@@ -28,7 +28,8 @@ var accountSchema = new mongoose.Schema({
     created: { type: Date, required: true, default: Date.now },
     status: { type: String },
     resellername: { type: String },
-    resellercomission: { type: Number }
+    resellercomission: { type: Number },
+    revenuecalculated:{type:Boolean}
 });
 
 mongoose.model('Account', accountSchema);
