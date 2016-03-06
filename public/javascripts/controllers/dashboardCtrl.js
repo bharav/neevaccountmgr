@@ -43,16 +43,16 @@ function DashboardController($scope, $rootScope, $location, AccountService) {
 function GetRevenueData(data) {
     var revenue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (var i = 0; i < 12; i++) {
-        var month = data[0].month;
-        revenue[month] = data[i].revenue;
+        var month = data[i].month;
+        revenue[month-1] = data[i].revenue;
     }
     return revenue;
 }
 function GetProfitData(data) {
     var profit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (var i = 0; i < 12; i++) {
-        var month = data[0].month;
-        profit[month] = data[i].profit;
+        var month = data[i].month;
+        profit[month-1] = data[i].profit;
     }
     return profit;
 }

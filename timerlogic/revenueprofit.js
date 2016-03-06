@@ -86,7 +86,7 @@ function UpdateRevenueDb(accounts, count) {
             totalprofit += (product.sellingprice - product.costprice) * product.units;
         }, this);
         //if there is no data strore for the accounts month and year then it will create a new record
-        Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': createdate.getMonth() }, function (err, profitrevenue) {
+        Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': (createdate.getMonth()+1) }, function (err, profitrevenue) {
             if (err) {
                 console.log(err);
             }
