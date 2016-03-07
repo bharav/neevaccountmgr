@@ -22,8 +22,8 @@ var customer = require('./routes/customer');
 var revenue = require('./routes/revenueprofit');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
-mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
-//mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
+//mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
+mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
 var app = express();
 var schedule = require('node-schedule');
 
