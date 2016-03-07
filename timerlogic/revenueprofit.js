@@ -19,23 +19,7 @@ module.exports = {
                     }
                 })
             }
-            else {
-                //if there is a lastRevenuCalculatedDate then the system will do the calculation on accounts data which is new
-                var lastRevenuCalculatedDate = systemvariable.RevenueLastCalculated
-                systemvariable.RevenueLastCalculated = new Date();
-                systemvariable.save(function (err, data) { });
-                Account.find({ 'created': { '$gt': lastRevenuCalculatedDate, '$lte': new Date() } }, function (err, accounts) {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        UpdateRevenueDb(accounts, accounts.length - 1);
-                    }
-                })
-            }
-        })
-
-
+        });
     },
     initiatlizeRevenueDB: function initiatlizeRevenueDB() {
         var currentdate = new Date();
@@ -86,16 +70,15 @@ function UpdateRevenueDb(accounts, count) {
             totalprofit += (product.sellingprice - product.costprice) * product.units;
         }, this);
         //if there is no data strore for the accounts month and year then it will create a new record
-        Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': (createdate.getMonth()+1) }, function (err, profitrevenue) {
+        Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': (createdate.getMonth() + 1) }, function (err, profitrevenue) {
             if (err) {
                 console.log(err);
             }
             else {
-                accounts[count].revenuecalculated=true;
-                accounts[count].save(function(err,account)
-                {
-                    if(err)
-                    console.log(err);
+                accounts[count].revenuecalculated = true;
+                accounts[count].save(function (err, account) {
+                    if (err)
+                        console.log(err);
                 });
                 if (profitrevenue === null) {
                     var tempProfitandRevenue = new Profitrevenue({
@@ -121,8 +104,14 @@ function UpdateRevenueDb(accounts, count) {
                 }
                 //if there is a record for the current accounts created year and month then it will update the existing one 
                 else {
-                    profitrevenue.revenue += accounts[count].billedamount;
-                    profitrevenue.profit += totalprofit;
+                    if (accounts.length === count + 1) {
+                        profitrevenue.revenue = accounts[count].billedamount;
+                        profitrevenue.profit = totalprofit;
+                    }
+                    else {
+                        profitrevenue.revenue += accounts[count].billedamount;
+                        profitrevenue.profit += totalprofit;
+                    }
                     profitrevenue.save(function (err, data) {
                         if (err)
                             console.log(err);

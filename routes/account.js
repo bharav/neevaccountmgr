@@ -79,7 +79,7 @@ router.route('/account/:id')
         Account.findById(req.params.id, function (err, account) {
             if (err)
                 res.send(err);
-            UpdateRevenueProfit(account,req.body);
+                
             account.status = req.body.status;
             account.customer = req.body.customer;
             account.products = req.body.products;
@@ -124,88 +124,5 @@ router.route('/accountbydate')
             res.json(account);
         })
     });
-function UpdateRevenueProfit(source,updated)
-{
-    var sourceitemupdated = false;
-    var newupdateditem = false;
-    var sourcedeleted=false;
-      source.products.forEach(function(sourceeproduct) {
-         updated.products.forEach(function(updatedproduct){
-          //if product is newly added than product value needs to be added in 
-            if(typeof(updatedproduct._id)!=='undefined')
-            {
-                newupdateditem = true;
-                if(source.revenuecalculated)
-                UpdateRevenueWithNewItemAdded(updatedproduct,source.created)
-            } 
-            else if(updatedproduct._id===sourceeproduct._id)
-            {
-                if(updatedproduct.costprice!==sourceeproduct.costprice ||
-                updatedproduct.sellingprice!==sourceeproduct.sellingprice ||
-                updatedproduct.costunit!==sourceeproduct.costunit)
-                {
-                   sourceitemupdated=true;    
-                   if(source.revenuecalculated)
-                   UpdateRevenueWithItemUpdated(sourceeproduct,updatedproduct,source.created)                
-                }
-            }
-            
-        }, this);
-        sourcedeleted=true;
-        if(source.revenuecalculated)
-        UpdateRevenueWithSourceDeleted(sourceeproduct,source.created);
-    }, this);
-}
 
-function UpdateRevenueWithNewItemAdded(product,createddate)
-{
-    var createdate= new Date(createddate);
-     Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': (createdate.getMonth()+1) }, function (err, profitrevenue) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                profitrevenue.revenue += (product.sellingprice*product.units);
-                profitrevenue.profit +=(product.sellingprice-product.costprice)*product.units;
-                profitrevenue.save(function(err,profitrevenue){
-                    if(err)
-                    console.log(err);
-                })
-            }})
-}
-function UpdateRevenueWithItemUpdated(oldproduct,newproduct,createddate)
-{
-    var createdate= new Date(createddate);
-     Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': (createdate.getMonth()+1) }, function (err, profitrevenue) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                profitrevenue.revenue -= (oldproduct.sellingprice*oldproduct.units);
-                profitrevenue.revenue += (newproduct.sellingprice*newproduct.units);
-                profitrevenue.profit -=(oldproduct.sellingprice-oldproduct.costprice)*oldproduct.units;
-                profitrevenue.profit +=(newproduct.sellingprice-newproduct.costprice)*newproduct.units;
-                profitrevenue.save(function(err,profitrevenue){
-                    if(err)
-                    console.log(err);
-                })
-            }})
-    
-}
-function UpdateRevenueWithSourceDeleted(productdeleted,createddate)
-{
-    var createdate= new Date(createddate);
-     Profitrevenue.findOne({ 'year': createdate.getFullYear(), 'month': (createdate.getMonth()+1) }, function (err, profitrevenue) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                profitrevenue.revenue -= (productdeleted.sellingprice*productdeleted.units);
-                profitrevenue.profit -=(productdeleted.sellingprice-productdeleted.costprice)*productdeleted.units;
-                profitrevenue.save(function(err,profitrevenue){
-                    if(err)
-                    console.log(err);
-                })
-            }})
-}
 module.exports = router;
