@@ -23,24 +23,29 @@ var customer = require('./routes/customer');
 var revenue = require('./routes/revenueprofit');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
-mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
-//mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
+//mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
+mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
 var app = express();
 var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();
-//rule.hour = 23;
-//rule.minute = 45;
-rule.second = 10;
+rule.hour = 23;
+rule.minute = 45;
+//rule.second = 10;
 
-var j = schedule.scheduleJob(rule, function () {
+var j = schedule.scheduleJob(rule, function() {
     console.log('Testing Cron Job!');
     timer2.ResetDueForCustomer();
     timer2.ResetDuetoDealer();
     timer.initiatlizeRevenueDB();
-    timer.updateProfitRevenue();
-    timer2.PaymentDuetoMe();
-    timer2.PaymentDuetoDealer();
+    setTimeout(function() {
+
+        timer.updateProfitRevenue();
+        timer2.PaymentDuetoMe();
+        timer2.PaymentDuetoDealer();
+    }, 10000);
+
+
 
 });
 
@@ -69,7 +74,7 @@ app.use('/api', revenue);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -84,7 +89,7 @@ initPassport(passport);
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
+    app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -95,7 +100,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

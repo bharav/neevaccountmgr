@@ -20,7 +20,7 @@ module.exports = {
         })
     },
     ResetDuetoDealer: function ResetDuetoDealer() {
-        Dealer.find(function(err, dealers) {
+      Dealer.find(function(err, dealers) {
             if (err)
                 console.log(err);
             else {
@@ -28,7 +28,7 @@ module.exports = {
                     dealer.paymentdue = 0;
                     dealer.save(function(err, dealer) {
                         if (err)
-                            console.log("Error in updating dealer " + err);
+                            console.log('Error in updating dealer' + err);
                     })
                 }, this);
             }
@@ -96,7 +96,7 @@ function UpdateDealerDues(accounts, count) {
 
 function UpdateDealerDueProductWise(products, count) {
     if (products.length > 0) {
-        Dealer.findOne({ 'contact': products[count].dealercontact }, function(err, dealer) {
+              Dealer.findOne({ 'contact': products[count].dealercontact }, function(err, dealer) {
             if (err) {
 
             }
