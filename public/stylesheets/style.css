@@ -186,4 +186,7 @@ body {
     border-radius: 0;
     box-shadow: none;
   }
+  .error{
+      color: red;
+  }
 

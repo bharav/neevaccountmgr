@@ -15,6 +15,7 @@ require('./models/user');
 require('./models/profitrevenue');
 require('./models/systemvariables');
 var timer = require('./timerlogic/revenueprofit');
+var timer2 = require('./timerlogic/paymentdue');
 var index = require('./routes/index')
 var account = require('./routes/account');
 var dealer = require('./routes/dealer');
@@ -22,8 +23,8 @@ var customer = require('./routes/customer');
 var revenue = require('./routes/revenueprofit');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
-//mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
-mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
+mongoose.connect('mongodb://localhost:27017/neevaccountdb');              //connect to Mongo
+//mongoose.connect('mongodb://neevsysmgr:mongo2016@ds064188.mlab.com:64188/neevaccountdb');              //connect to Mongo
 var app = express();
 var schedule = require('node-schedule');
 
@@ -34,9 +35,15 @@ rule.second = 10;
 
 var j = schedule.scheduleJob(rule, function () {
     console.log('Testing Cron Job!');
+    timer2.ResetDueForCustomer();
+    timer2.ResetDuetoDealer();
     timer.initiatlizeRevenueDB();
     timer.updateProfitRevenue();
+    timer2.PaymentDuetoMe();
+    timer2.PaymentDuetoDealer();
+
 });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

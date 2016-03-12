@@ -24,7 +24,7 @@ function isAuthenticated(req, res, next) {
 
 //Register the authentication middleware
 router.use('/dealers', isAuthenticated);
-        
+router.use('/dealertobepaid', isAuthenticated);
 //api for all posts
 router.route('/dealers')
 
@@ -87,5 +87,12 @@ router.route('/dealer/:id')
             res.json("deleted :(");
         });
     });
-
+router.route('/dealertobepaid')
+   .get(function(req,res){
+       Dealer.find({'paymentdue':{$gt:0}},function(err,dealers){
+             if (err)
+                res.send(err);
+            res.json(dealers);
+       })
+   })
 module.exports = router;
