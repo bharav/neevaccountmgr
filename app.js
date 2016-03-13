@@ -15,6 +15,7 @@ require('./models/user');
 require('./models/profitrevenue');
 require('./models/systemvariables');
 var timer = require('./timerlogic/revenueprofit');
+var timer2 = require('./timerlogic/paymentdue');
 var index = require('./routes/index')
 var account = require('./routes/account');
 var dealer = require('./routes/dealer');
@@ -29,14 +30,25 @@ var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();
 //rule.hour = 23;
-//rule.minute = 45;
-rule.second = 10;
+rule.minute = 45;
+//rule.second = 10;
 
-var j = schedule.scheduleJob(rule, function () {
+var j = schedule.scheduleJob(rule, function() {
     console.log('Testing Cron Job!');
+    timer2.ResetDueForCustomer();
+    timer2.ResetDuetoDealer();
     timer.initiatlizeRevenueDB();
-    timer.updateProfitRevenue();
+    setTimeout(function() {
+
+        timer.updateProfitRevenue();
+        timer2.PaymentDuetoMe();
+        timer2.PaymentDuetoDealer();
+    }, 10000);
+
+
+
 });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -62,7 +74,7 @@ app.use('/api', revenue);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -77,7 +89,7 @@ initPassport(passport);
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
+    app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -88,7 +100,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

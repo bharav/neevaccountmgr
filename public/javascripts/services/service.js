@@ -131,6 +131,30 @@ angular.module('NeevAccountApp.services', [])
                 });
             return deferred.promise;
         }
+         function getCustomerDue(){
+            var deferred = $q.defer();
+            $http.get("/api/customerwithdue")
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    console.log("Error in http call.");
+                    deferred.reject();
+                });
+            return deferred.promise;
+        }
+         function getDealerDue(){
+            var deferred = $q.defer();
+            $http.get("/api/dealertobepaid")
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    console.log("Error in http call.");
+                    deferred.reject();
+                });
+            return deferred.promise;
+        }
         return {
             setAccountId: setAccountId,
             getAccounts: getAccounts,
@@ -140,7 +164,9 @@ angular.module('NeevAccountApp.services', [])
             getAccountbyDate: getAccountbyDate,
             getCustomers:getCustomers,
             getDealers:getDealers,
-            getRevenueProfit:getRevenueProfit
+            getRevenueProfit:getRevenueProfit,
+            getCustomerDue:getCustomerDue,
+            getDealerDue:getDealerDue
         }
 
     })

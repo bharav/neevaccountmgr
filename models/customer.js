@@ -5,7 +5,8 @@ var customerSchema = new mongoose.Schema({
     name:{type:String},
     contact:{type:Number},
     connectedfrom:{type:String},
-    address:{type:String}
+    address:{type:String},
+    paymentdue:{type:Number}
 });
 
 

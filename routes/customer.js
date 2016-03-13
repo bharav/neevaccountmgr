@@ -24,6 +24,8 @@ function isAuthenticated(req, res, next) {
 
 //Register the authentication middleware
 router.use('/customers', isAuthenticated);
+router.use('/customerwithdue',isAuthenticated);
+
         
 //api for all posts
 router.route('/customers')
@@ -88,4 +90,13 @@ router.route('/customer/:id')
         });
     });
 
+
+router.route('/customerwithdue')
+   .get(function(req,res){
+       Customer.find({'paymentdue':{$gt:0}},function(err,customer){
+             if (err)
+                res.send(err);
+            res.json(customer);
+       })
+   })
 module.exports = router;

@@ -4,7 +4,8 @@ var customerSchema = new mongoose.Schema({
     name: { type: String },
     contact: { type: Number },
     connectedfrom: { type: String },
-    address: { type: String }
+    address: { type: String },
+    custId: { type: String }
 });
 var productSchema = new mongoose.Schema({
     name: { type: String },
@@ -29,10 +30,10 @@ var accountSchema = new mongoose.Schema({
     status: { type: String },
     resellername: { type: String },
     resellercomission: { type: Number },
-    revenuecalculated:{type:Boolean},
-    deltaRevenue:{type:Number},
-    deltaProfit:{type:Number},
-    updated:{type:Date}
+    revenuecalculated: { type: Boolean },
+    deltaRevenue: { type: Number },
+    deltaProfit: { type: Number },
+    updated: { type: Date }
 });
 
 mongoose.model('Account', accountSchema);

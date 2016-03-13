@@ -7,15 +7,15 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
     $scope.customer = [];
     if ($rootScope.authenticated === false)
         $location.path('/login')
-    AccountService.getCustomers().then(function (data) {
+    AccountService.getCustomers().then(function(data) {
         $scope.customers = data;
         console.log(data);
     });
-    AccountService.getDealers().then(function (data) {
+    AccountService.getDealers().then(function(data) {
         $scope.dealers = data;
         console.log(data);
-    }); 
-            
+    });
+
     //  AccountService.getDealers().then(function (data) {
     // $scope.dealers=data;
     // console.log(data);
@@ -26,7 +26,7 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
     $scope.billedamount = 0;
     if (typeof $routeParams.id !== 'undefined' && $routeParams.state !== 'undefined') {
         AccountService.setAccountId($routeParams.id);
-        AccountService.getAccountbyId($scope.account).then(function (data) {
+        AccountService.getAccountbyId($scope.account).then(function(data) {
             $scope.account = data;
             var dateObj = new Date($scope.account.created);
             $scope.account.created = dateObj.getFullYear() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getDate();
@@ -40,9 +40,15 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
             $scope.read = true;
         }
     }
-    
+    $scope.ShowProductDiv = function() {
+        if ($scope.products.length > 0)
+            return true;
+        else
+            return false;
+    }
+
     // add products
-    $scope.AddProduct = function () {
+    $scope.AddProduct = function() {
         if (typeof $scope.dealerSelected.dealerId !== 'undefined' && $scope.dealerSelected.dealerId !== 'undefined') {
             $scope.newProduct.dealerId = $scope.dealerSelected.dealerId;
         }
@@ -54,64 +60,76 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
         $scope.dealerSelected = [];
 
     }
-    
+
     //edit already added products
-    $scope.productedit = function (product, index) {
+    $scope.productedit = function(product, index) {
         $scope.billedamount -= (product.sellingprice * product.units)
         $scope.newProduct = product;
         if (typeof product.dealerId !== 'undefined' && product.dealerId !== 'undefined') {
-              $scope.dealerSelected.dealerId = product.dealerId;
+            $scope.dealerSelected.dealerId = product.dealerId;
         }
         $scope.dealerSelected.name = product.dealer;
         $scope.dealerSelected.contact = product.dealercontact;
         $scope.products.splice(index, 1);
     }
-    
+
     //Delete product already added
-    $scope.productdelete = function (product, index) {
+    $scope.productdelete = function(product, index) {
         $scope.billedamount -= (product.sellingprice * product.units)
         $scope.products.splice(index, 1);
-    } 
-    
+    }
+
     // reset product fields
-    $scope.ResetProduct = function () {
+    $scope.ResetProduct = function() {
         $scope.products.push($scope.newProduct);
         $scope.newProduct = null;
-    } 
-    
+    }
+
     //submit account entry
-    $scope.submitaccount = function () {
-        if ($scope.customerSelected._id === null || typeof ($scope.customerSelected._id) === "undefined") {
-            var customernew =
-                {
-                    "name": $scope.customerSelected.name,
-                    "connectedfrom": $scope.customerSelected.connectedfrom,
-                    "contact": $scope.customerSelected.contact,
-                    "address": $scope.customerSelected.address,
-                };
-            $scope.customer.push(customernew);
+    $scope.submitaccount = function() {
+        if (IsAccountValid()) {
+            if ($scope.customerSelected._id === null || typeof ($scope.customerSelected._id) === "undefined") {
+                var customernew =
+                    {
+                        "name": $scope.customerSelected.name,
+                        "connectedfrom": $scope.customerSelected.connectedfrom,
+                        "contact": $scope.customerSelected.contact,
+                        "address": $scope.customerSelected.address,
+                    };
+                $scope.customer.push(customernew);
+            }
+            else {
+                $scope.customer.push($scope.customerSelected);
+            }
+            $scope.account.customer = $scope.customer;
+            $scope.account.products = $scope.products
+            $scope.account.billedamount = $scope.billedamount;
+            if (typeof $routeParams.id !== 'undefined' && typeof $routeParams.state !== 'undefined') {
+                AccountService.updateAccount($scope.account).then(function(data) {
+                    console.log(data);
+                    $location.path('/' + data._id + "/read");
+                })
+            }
+            else {
+                AccountService.setAccounts($scope.account).then(function(data) {
+                    console.log(data);
+                    $location.path('/' + data._id + "/read");
+                })
+            }
         }
-        else {
-            $scope.customer.push($scope.customerSelected);
-        }
-        $scope.account.customer = $scope.customer;
-        $scope.account.products = $scope.products
-        $scope.account.billedamount = $scope.billedamount;
-        if (typeof $routeParams.id !== 'undefined' && typeof $routeParams.state !== 'undefined') {
-            AccountService.updateAccount($scope.account).then(function (data) {
-                console.log(data);
-                $location.path('/' + data._id + "/read");
-            })
-        }
-        else {
-            AccountService.setAccounts($scope.account).then(function (data) {
-                console.log(data);
-                $location.path('/' + data._id + "/read");
-            })
+        $scope.updateaccount = function() {
+            $location.path('/' + $routeParams.id + "/edit");
         }
     }
-    $scope.updateaccount = function () {
-        $location.path('/' + $routeParams.id + "/edit");
+    function IsAccountValid() {
+        if ($scope.products.length < 1) {
+            $scope.error_message = "Please add atleast one product";
+            return false;
+        }
+        else
+            return true;
     }
 }
+
+
 

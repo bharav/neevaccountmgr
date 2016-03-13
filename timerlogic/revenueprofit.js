@@ -6,7 +6,7 @@ module.exports = {
     updateProfitRevenue: function updateProfitRevenue() {
         SystemVariables.findOne(function (err, systemvariable) {
             //if there is no systemvariable set it will calculate profit on all the account data
-            if (systemvariable === null) {
+            
                 var sysvariable = new SystemVariables({ 'RevenueLastCalculated': new Date() })
                 sysvariable.save(function (err, data) { });
                 Account.find(function (err, accounts) {
@@ -18,7 +18,7 @@ module.exports = {
                         UpdateRevenueDb(accounts, accounts.length - 1);
                     }
                 })
-            }
+            
         });
     },
     initiatlizeRevenueDB: function initiatlizeRevenueDB() {
