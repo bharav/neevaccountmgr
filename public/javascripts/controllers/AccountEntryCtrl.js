@@ -117,9 +117,10 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
                 })
             }
         }
-        $scope.updateaccount = function() {
-            $location.path('/' + $routeParams.id + "/edit");
-        }
+
+    }
+    $scope.updateaccount = function() {
+        $location.path('/' + $routeParams.id + "/edit");
     }
     function IsAccountValid() {
         if ($scope.products.length < 1) {
