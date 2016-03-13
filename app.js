@@ -29,7 +29,7 @@ var app = express();
 var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();
-rule.hour = 23;
+//rule.hour = 23;
 rule.minute = 45;
 //rule.second = 10;
 

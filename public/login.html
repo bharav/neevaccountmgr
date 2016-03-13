@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <form class="form-signup">
-        <span class="error">{{error_message}}</span>
+        <div class="alert alert-danger" ng-show="error_message">{{error_message}}</div>
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputUsername" class="sr-only">Username</label>
         <input type="text" id="inputUsername" class="form-control" placeholder="User name" ng-model="user.username" required autofocus>

@@ -12,6 +12,13 @@
         </div>
     </script>
     <form class="form">
+        <div class="alert alert-danger" ng-show="error_message">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Error Message</h4> {{error_message}}
+                </div>
+            </div>
+        </div>
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -27,7 +34,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCustomerContact" class="sr-only">Order Status</label>
-                                <select id="orderoption" class="form-control" ng-model="account.status" ng-readonly="read">
+                                <select id="orderoption" class="form-control mobile_forced_margin" ng-model="account.status" ng-readonly="read">
                                     <option value="" disabled selected hidden>Order Status</option>
                                     <option>Open</option>
                                     <option>Closed</option>
@@ -65,7 +72,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="inputCustomerContactedFrom" class="sr-only">Customer Contact From</label>
-                                <select class="form-control" ng-model="customerSelected.connectedfrom" placeholder="Customer Contact From" ng-readonly="read">
+                                <select class="form-control mobile_forced_margin" ng-model="customerSelected.connectedfrom" placeholder="Customer Contact From"
+                                ng-readonly="read">
                                     <option value="" disabled selected hidden>Customer Contact From</option>
                                     <option>facebook</option>
                                     <option>whatsapp</option>
@@ -130,8 +138,8 @@
                         <div class="row" ng-hide="read">
                             <div class="col-md-6">
                                 <label for="inputPurchasepaymentStatus" class="sr-only">Purchase Payment Status</label>
-                                <select id="inputPurchasepaymentStatus" class="form-control" ng-model="newProduct.purchasepaymentdone" placeholder="Purchase Payment Done"
-                                ng-readonly="read">
+                                <select id="inputPurchasepaymentStatus" class="form-control mobile_forced_margin" ng-model="newProduct.purchasepaymentdone"
+                                placeholder="Purchase Payment Done" ng-readonly="read">
                                     <option value="" disabled hidden>Purchase Payment Status</option>
                                     <option>Due</option>
                                     <option>Paid</option>
@@ -154,26 +162,40 @@
                             <button class="btn btn-lg btn-primary pull-right" type="submit" ng-click="AddProduct()" ng-hide="read">Add Product</button>
                             <button class="btn btn-lg btn-primary pull-right margin-10" type="submit" ng-click="ResetProduct()" ng-hide="read">Cancel</button>
                         </div>
-                        <div>
+                        <div ng-show="ShowProductDiv()">
                             <h3> Product Details:</h3>
-                            <div class="row productrow" ng-repeat="product in products">
-                                <div class="col-md-4">{{product.name}}</div>
-                                <div class="col-md-2">{{product.sellingprice}}</div>
-                                <div class="col-md-2">{{product.units}}</div>
-                                <div class="col-md-2">{{product.sellingprice*product.units}}</div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ng-click="productedit(product,$index)"
-                                    ng-hide="read">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#delete" ng-click="productdelete(product,$index)"
-                                    ng-hide="read">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </div>
-                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th class="hide_column">Selling Price</th>
+                                        <th class="hide_column">Unit Price</th>
+                                        <th >Total Price</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="product in products">
+                                        <td>{{product.name}}</td>
+                                        <td class="hide_column">{{product.sellingprice}}</td>
+                                        <td class="hide_column">{{product.units}}</td>
+                                        <td>{{product.sellingprice*product.units}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"
+                                            ng-click="productedit(product,$index)" ng-hide="read">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#delete" ng-click="productdelete(product,$index)"
+                                            ng-hide="read">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -189,7 +211,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputPaymentStatus" class="sr-only">Payment Status</label>
-                                <select id="inputPaymentStatus" class="form-control" ng-model="account.paymentstatus" placeholder="Payment Status" ng-readonly="read">
+                                <select id="inputPaymentStatus" class="form-control mobile_forced_margin" ng-model="account.paymentstatus" placeholder="Payment Status"
+                                ng-readonly="read">
                                     <option value="" disabled selected hidden>Payment Status</option>
                                     <option>Due</option>
                                     <option>Paid</option>
@@ -204,7 +227,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputShipmentStatus" class="sr-only">Shipment Status</label>
-                                <select id="inputShipmentStatus" class="form-control" ng-model="account.shipmentstatus" placeholder="Shipment Status" ng-readonly="read">
+                                <select id="inputShipmentStatus" class="form-control mobile_forced_margin" ng-model="account.shipmentstatus" placeholder="Shipment Status"
+                                ng-readonly="read">
                                     <option value="" disabled selected hidden>Shipment Status</option>
                                     <option>Not Started</option>
                                     <option>In Transit</option>
