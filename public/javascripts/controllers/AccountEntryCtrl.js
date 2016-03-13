@@ -126,6 +126,8 @@ function AccountEntryController($scope, $rootScope, $location, $routeParams, Acc
             $scope.error_message = "Please add atleast one product";
             return false;
         }
+        else
+            return true;
     }
 }
 

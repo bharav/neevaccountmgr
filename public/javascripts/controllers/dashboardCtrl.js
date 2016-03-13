@@ -63,7 +63,7 @@ function DashboardController($scope, $rootScope, $location, AccountService) {
                 }
             },
             title: {
-                text: 'Customer pending amounnt as of now Rs:' + totalCustomerPending
+                text: 'Customer pending amount as of now Rs:' + totalCustomerPending
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.y}</b>'
@@ -99,7 +99,7 @@ function DashboardController($scope, $rootScope, $location, AccountService) {
                 }
             },
             title: {
-                text: 'Dealer amounnt pending as of now Rs:'+totalDealerPending
+                text: 'Dealer amount pending as of now Rs:'+totalDealerPending
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.y}</b>'
